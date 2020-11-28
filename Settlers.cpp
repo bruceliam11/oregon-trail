@@ -24,12 +24,12 @@ void Settlers::inputLeaderName()   //input name of player
 }
 string Settlers::getLeaderName()   //player name getter
 {
-    return leaderName_;
+    return teamMemberNames_[0];
 }
 
 void Settlers::setLeaderName(string leaderName)  //player name setter
 {
-    leaderName_ = leaderName;
+    teamMemberNames_.push_back(leaderName);
 }
 void Settlers::inputCompanionNames()  //input names of companions
 {
@@ -51,18 +51,18 @@ void Settlers::inputCompanionNames()  //input names of companions
 void Settlers::printCompanionNames()  //prints out names (used for testing)
 {
     cout<<"Your companions are: "
-        <<companion1_<<", "
-        <<companion2_<<", "
-        <<companion3_<<", "
-        <<companion4_<<endl;
+        <<teamMemberNames_[1]<<", "
+        <<teamMemberNames_[2]<<", "
+        <<teamMemberNames_[3]<<", "
+        <<teamMemberNames_[4]<<endl;
 }
 
 void Settlers::setCompanionNames(string companion1, string companion2, string companion3, string companion4) //companion name setter
 {
-    companion1_ = companion1;
-    companion2_ = companion2;
-    companion3_ = companion3;
-    companion4_ = companion4;
+    teamMemberNames_.push_back(companion1);
+    teamMemberNames_.push_back(companion2);
+    teamMemberNames_.push_back(companion3);
+    teamMemberNames_.push_back(companion4);
 }
 
 double Settlers::getMoney(){   //money getter
@@ -95,4 +95,39 @@ void Settlers::visitStore(Store store)  //when user enters store
 {
     printMoney();
     store.printWelcomeMessage();
+}
+
+void Settlers::inputStartDate()
+{
+    int choice = 0;
+    string month;
+    int day = 0;
+    int daysInMonth;
+    while (choice>3 || choice<1)
+    {
+        cout<<"What month do you want to start your expedition?\n1.March\n2.April\n3.May"<<endl;
+        cin>>choice;
+    }
+    if (choice==1)
+    {
+        month = "March";
+        daysInMonth = 31;
+    }
+    else if (choice==2)
+    {
+        month = "April";
+        daysInMonth = 30;
+    }
+    else
+    {
+        month = "May";
+        daysInMonth = 31;
+    }
+    while (day>daysInMonth || day<1)
+    {
+        cout<<"What day do you want to leave in "<<month<<"? "<<month<<" has "<<daysInMonth<<" days."<<endl;
+        cin>>day;
+    }
+    cout<<"Congratulations! You are about to embark on the epic journey from Independence, Mississippi to Oregon City, Oregon on "<<month<<" "<<day<<", 1847"<<endl;
+    calender_.setStartDate(Month(month,day));
 }

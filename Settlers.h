@@ -4,9 +4,11 @@
 // Project 3 Skeleton
 #pragma once
 #include "Store.h"
+#include "Calender.h"
 #include <iostream>
 #include <iomanip>
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -28,17 +30,20 @@ class Settlers
         void setMilesToGo(double milesToGo);
         void printMilesToGo();
         void visitStore(Store store);
+        void inputStartDate();
         
         
 
     private:
-        string leaderName_;
-        string companion1_;
-        string companion2_;
-        string companion3_;
-        string companion4_;
+        vector<string> teamMemberNames_;
         double money_;
+        int oxen_;   //number of oxen
+        int food_;   //pounds of food
+        int bullets_;  //number of boxes
+        int wagonParts_;  //number of wagon parts
+        int medKits_;      //number of med kits
         double milesToGo_;
+        Calender calender_;
         //supplies (food, oxen, bullets, wagon parts)
         //Oxen oxen_;
         //Food food_;

@@ -11,7 +11,7 @@ using namespace std;
 
 int main(){
     
-    cout<<"THIS PROGRAM SIMULATES A TRIP OVER THE OREGON TRAIL FROMINDEPENDENCE, MISSOURI TO OREGON CITY, OREGON IN 1847. YOURFAMILY OF FIVE WILL COVER THE 2040 MILE OREGON TRAIL IN 5-6MONTHS --- IF YOU MAKE IT ALIVE."<<endl<<endl;
+    cout<<"THIS PROGRAM SIMULATES A TRIP OVER THE OREGON TRAIL FROMINDEPENDENCE, MISSOURI TO OREGON CITY, OREGON IN 1847. YOUR FAMILY OF FIVE WILL COVER THE 2040 MILE OREGON TRAIL IN 5-6MONTHS --- IF YOU MAKE IT ALIVE."<<endl<<endl;
     Settlers settlers;
     settlers.inputLeaderName();
     cout<<settlers.getLeaderName()<<endl;
@@ -19,8 +19,9 @@ int main(){
     settlers.printCompanionNames();
     settlers.printMoney();
     settlers.printMilesToGo();
-    Store store(1.0);
-    settlers.visitStore(store);
+    settlers.inputStartDate();
+    //Store store(1.0);
+    //settlers.visitStore(store);
     //buying items in store
     //Store fort1(1.25);
     //settlers.visitStore(fort1);

@@ -8,6 +8,26 @@
 #include <vector>
 using namespace std;
 
+
+Calender::Calender()
+{
+    year_ = 1847;
+    daysElapsed_ = 0;
+    //add months to calender
+    addMonth(Month("January", 31));
+    addMonth(Month("February", 28));
+    addMonth(Month("March", 31));
+    addMonth(Month("April", 30));
+    addMonth(Month("May", 31));
+    addMonth(Month("June", 30));
+    addMonth(Month("July", 31));
+    addMonth(Month("August", 31));
+    addMonth(Month("September", 30));
+    addMonth(Month("October", 30));
+    addMonth(Month("November", 30));
+    addMonth(Month("December", 31));
+}
+
 Calender::Calender(int year){
     year_ = year;
     daysElapsed_ = 0;
@@ -93,7 +113,7 @@ Month Calender::computeCurrentDate()
 }
 
 
-int main(){
+/*int main(){
     Calender calender(1847);
     calender.addMonth(Month("January", 31));
     calender.addMonth(Month("February", 28));
@@ -112,4 +132,7 @@ int main(){
     calender.addElapsedDays(90);
     Month currentDate = calender.computeCurrentDate();
     cout<<currentDate.getName()<<" "<<currentDate.getDay()<<endl;
-}
+    calender.addElapsedDays(90);
+    currentDate = calender.computeCurrentDate();
+    cout<<currentDate.getName()<<" "<<currentDate.getDay()<<endl;
+}*/

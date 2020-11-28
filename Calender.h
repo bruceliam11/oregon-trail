@@ -14,6 +14,7 @@ using namespace std;
 class Calender
 {
     public:
+        Calender();
         Calender(int year);
         void addMonth(Month month);
         void printCalender();
