@@ -31,6 +31,7 @@ class Settlers
         void printMilesToGo();
         void visitStore(Store store);
         void inputStartDate();
+        void printSupplies();
         
         
 

@@ -20,8 +20,11 @@ int main(){
     settlers.printMoney();
     settlers.printMilesToGo();
     settlers.inputStartDate();
-    //Store store(1.0);
-    //settlers.visitStore(store);
+    Store store(1.0);
+    settlers.visitStore(store);
+    settlers.printSupplies();
+    //settlers.printMoney();
+    //store.printMenu();
     //buying items in store
     //Store fort1(1.25);
     //settlers.visitStore(fort1);

@@ -11,6 +11,11 @@ using namespace std;
 Settlers::Settlers(){
     setMoney(1600.0);
     setMilesToGo(2040.0);
+    oxen_ = 0;
+    food_ = 0;
+    bullets_ = 0;
+    wagonParts_ = 0;
+    medKits_ = 0;
 }
 
 //member functions
@@ -95,6 +100,9 @@ void Settlers::visitStore(Store store)  //when user enters store
 {
     printMoney();
     store.printWelcomeMessage();
+    store.setMoney(getMoney());
+    double total = store.printMenu(oxen_,food_,bullets_,wagonParts_,medKits_);
+    setMoney(getMoney()-total);
 }
 
 void Settlers::inputStartDate()
@@ -130,4 +138,11 @@ void Settlers::inputStartDate()
     }
     cout<<"Congratulations! You are about to embark on the epic journey from Independence, Mississippi to Oregon City, Oregon on "<<month<<" "<<day<<", 1847"<<endl;
     calender_.setStartDate(Month(month,day));
+}
+
+
+
+void Settlers::printSupplies()
+{
+	cout<<"Oxen: "<<oxen_<<"\nFood: "<<food_<<"\nBullets: "<<bullets_<<"\nWagon parts: "<<wagonParts_<<"\nMed Kits: "<<medKits_<<endl;
 }

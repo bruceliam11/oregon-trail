@@ -19,11 +19,19 @@ class Store
             double wagonPartBasePrice = 20.0,
             double medKitBasePrice = 25.0);
         void printWelcomeMessage();
+        double printMenu(int &oxen, int &food, int &bullets, int &wagonParts, int &medKits);
         double getOxenPrice();
         double getFoodPrice();
         double getAmmunitionPrice();
         double getWagonPartPrice();
         double getMedKitPrice();
+        double purchaseOxen(int &oxen);
+        double purchaseFood(int &food);
+        double purchaseAmmunition(int &bullets);
+        double purchaseWagonParts(int &wagonParts);
+        double purchaseMedKits(int &medKits);
+        void setMoney(double money);
+        double getMoney();
 
 
     private:
@@ -33,6 +41,7 @@ class Store
         double ammunitionBasePrice_;
         double wagonPartBasePrice_;
         double medKitBasePrice_;
+        double money_;   //money the leader has available  
 };
 
 
