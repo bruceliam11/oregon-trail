@@ -5,6 +5,7 @@
 #include "Settlers.h"
 #include "Store.h"
 #include "Calender.h"
+#include "Month.h"
 #include <iostream>
 #include <cmath>
 using namespace std;
@@ -27,8 +28,14 @@ int main(){
     settlers.printSupplies();
     while (health!=0)
     {
-        cout<<date.computeCurrentDate()<<endl;
-        settlers.printMilesToGo();
+        
+        date = settlers.getCurrentDate();
+        cout<<date.getName()<<" "<<date.getDay()<<", "<<settlers.getYear()<<endl;
+        settlers.addDaysElapsed(14);
+		settlers.printStatus();
+        settlers.addDaysElapsed(14);
+        settlers.printStatus();
+        //settlers.printMilesToGo();
         
         health = 0;
     }

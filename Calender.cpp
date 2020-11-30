@@ -113,6 +113,12 @@ Month Calender::computeCurrentDate()
 }
 
 
+
+int Calender::getYear()
+{
+	return year_;
+}
+
 /*int main(){
     Calender calender(1847);
     calender.addMonth(Month("January", 31));

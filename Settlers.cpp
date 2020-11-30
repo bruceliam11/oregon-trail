@@ -146,3 +146,41 @@ void Settlers::printSupplies()
 {
 	cout<<"Oxen: "<<oxen_<<"\nFood: "<<food_<<"\nBullets: "<<bullets_<<"\nWagon parts: "<<wagonParts_<<"\nMed Kits: "<<medKits_<<endl;
 }
+
+
+
+
+
+Month Settlers::getCurrentDate()
+{
+	return calender_.computeCurrentDate();
+}
+
+
+
+int Settlers::getYear()
+{
+	return calender_.getYear();
+}
+
+
+
+
+void Settlers::addDaysElapsed(int daysElapsed)
+{
+	calender_.addElapsedDays(daysElapsed);
+}
+
+
+
+
+void Settlers::printStatus()
+{
+	Month date = getCurrentDate();
+    cout<<date.getName()<<" "<<date.getDay()<<", "<<getYear()<<endl<<endl;
+    cout<<"Total mileage is "<<2040-getMilesToGo()<<endl;
+    printSupplies();
+    
+}
+
+

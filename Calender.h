@@ -22,6 +22,7 @@ class Calender
         void addElapsedDays(int daysElapsed);
         int findStartingMonthIndex();
         Month computeCurrentDate();
+        int getYear();
 
 
     private:

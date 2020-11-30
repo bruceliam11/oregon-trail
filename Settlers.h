@@ -5,6 +5,7 @@
 #pragma once
 #include "Store.h"
 #include "Calender.h"
+#include "Month.h"
 #include <iostream>
 #include <iomanip>
 #include <string>
@@ -32,6 +33,10 @@ class Settlers
         void visitStore(Store store);
         void inputStartDate();
         void printSupplies();
+        Month getCurrentDate();
+        int getYear();
+        void addDaysElapsed(int daysElapsed);
+		void printStatus();
         
         
 
