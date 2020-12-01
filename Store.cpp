@@ -33,30 +33,42 @@ double Store::printMenu(int &oxen, int &food, int &bullets, int &wagonParts, int
 	double total = 0.0;
     while (choice!=6)
     {
+		double currentPurchase = 0.0;
         cout<<"What would you like to buy?\n1.Oxen........$"<<getOxenPrice()<<"\n2.Food........$"<<getFoodPrice()<<"\n3.Ammunition.....$"<<getAmmunitionPrice()<<"\n4.Wagon Parts....$"<<getWagonPartPrice()<<"\n5.Medical Kits...$"<<getMedKitPrice()<<endl;
         cout<<"Press 6 to exit"<<endl;
+		cout<<"You have $"<<getMoney()-total<<" left."<<endl;
         cin>>choice;
-        cout<<"You have $"<<getMoney()-total<<" left."<<endl;
 		if (choice==1)
 		{
-		    total+=purchaseOxen(oxen);
+			currentPurchase+=purchaseOxen(oxen);
 		}
 		else if (choice==2)
 		{
-		    total+=purchaseFood(food);
+		    currentPurchase+=purchaseFood(food);
 		}
 		else if (choice==3)
 		{
-		    total+=purchaseAmmunition(bullets);
+		    currentPurchase+=purchaseAmmunition(bullets);
 		}
 		else if (choice==4)
 		{
-		    total+=purchaseWagonParts(wagonParts);
+		    currentPurchase+=purchaseWagonParts(wagonParts);
 		}
 		else if (choice==5)
 		{
-			total+=purchaseMedKits(medKits);
+			currentPurchase+=purchaseMedKits(medKits);
 		}
+		else{}
+		if (currentPurchase+total > getMoney())
+		{
+			cout<<"You dont have the funds available to make this purchase. Maybe there's something else you could buy."<<endl;
+			
+		}
+		else
+		{
+			total+=currentPurchase;
+		}
+		
 	}
 	cout<<"Thank you for shopping. Have a safe journey!"<<endl;
 	return total;
@@ -89,99 +101,94 @@ double Store::purchaseOxen(int &oxen)
 {
 	int amount=1;
 	int price=0;
-	while (amount!=0)
+	cout<<"How many yokes of oxen would you like to buy? You must buy between 3 and 5 yokes of oxen. Each yoke is $"<<getOxenPrice()<<endl;
+	cin>>amount;
+	if (amount<3 || amount>5)
 	{
-		cout<<"How many yokes of oxen would you like to buy? You must buy between 3 and 5 yokes of oxen. Each yoke is $"<<getOxenPrice()<<endl;
-		cout<<"Press 0 to exit"<<endl;
-		cin>>amount;
-		if (amount==0)
-		{
-			break;
-		}
-		else if (amount<3 || amount>5)
-		{
-			cout<<"Must buy between 3 and 5 yokes"<<endl;
-		}
-		else{
-			price += amount*getOxenPrice();
-			oxen+=2*amount;
-			cout<<"current oxen total: $"<<price<<endl;
-		}
+		cout<<"Must buy between 3 and 5 yokes"<<endl;
 	}
-	cout<<"total oxen price: $"<<price<<endl;
-	return price;
+	else{
+		price += amount*getOxenPrice();
+		if (price<=getMoney())
+		{
+			oxen+=2*amount;
+			//cout<<"current oxen total: $"<<price<<endl;
+			return price;
+		}
+		else
+		{
+			cout<<"not enough funds"<<endl;
+		}
+		
+	}
+	return 0;
+	//cout<<"total oxen price: $"<<price<<endl;
 }
 
 double Store::purchaseFood(int &food)
 {
 	int amount=1;
 	int price=0;
-	while (amount!=0)
+	cout<<"How many pounds of food do you want to buy. You should buy at least 200lbs of food. Each pound of food is $"<<getFoodPrice()<<endl;
+	cin>>amount;
+	price += amount*getFoodPrice();
+	if (price<=getMoney())
 	{
-		cout<<"How many pounds of food do you want to buy. You should buy at least 200lbs of food. Each pound of food is $"<<getFoodPrice()<<endl;
-		cout<<"Press 0 to exit"<<endl;
-		cin>>amount;
-		if (amount==0)
-		{
-			break;
-		}
-		else
-		{
-			food+=amount;
-			price += amount*getFoodPrice();
-			cout<<"current food total: $"<<price<<endl;
-		}
+		food+=2*amount;
+		//cout<<"current oxen total: $"<<price<<endl;
+		return price;
 	}
-	cout<<"total food price: $"<<price<<endl;
-	return price;
+	else
+	{
+		cout<<"not enough funds"<<endl;
+	}
+	return 0;
+	//cout<<"current food total: $"<<price<<endl;
+	//cout<<"total food price: $"<<price<<endl;
 }
 
 double Store::purchaseAmmunition(int &bullets)
 {
 	int amount=1;
 	int price=0;
-	while (amount!=0)
+	cout<<"How many boxes of bullets do you want to buy? A box of 20 bullets costs $"<<getAmmunitionPrice()<<endl;
+	cin>>amount;
+	price += amount*getAmmunitionPrice();
+	if (price<=getMoney())
 	{
-		cout<<"How many boxes of bullets do you want to buy? A box of 20 bullets costs $"<<getAmmunitionPrice()<<endl;
-		cout<<"Press 0 to exit"<<endl;
-		cin>>amount;
-		if (amount==0)
-		{
-			break;
-		}
-		else
-		{
-			bullets += 20*amount;
-			price += amount*getAmmunitionPrice();
-			cout<<"current ammo total: $"<<price<<endl;
-		}
+		bullets += 20*amount;
+		return price;
 	}
-	cout<<"total ammo price: $"<<price<<endl;
-	return price;
+	else
+	{
+		cout<<"not enough funds"<<endl;
+	}
+	return 0;
+	
+			//cout<<"current ammo total: $"<<price<<endl;
+	//cout<<"total ammo price: $"<<price<<endl;
 }
 
 double Store::purchaseWagonParts(int &wagonParts)
 {
 	int amount=1;
 	int price=0;
-	while (amount!=0)
+	cout<<"How many wagon parts do you want to buy? Each wagon part is $"<<getWagonPartPrice()<<endl;
+	cin>>amount;
+	price += amount*getWagonPartPrice();
+	if (price<=getMoney())
 	{
-		cout<<"How many wagon parts do you want to buy? Each wagon part is $"<<getWagonPartPrice()<<endl;
-		cout<<"Press 0 to exit"<<endl;
-		cin>>amount;
-		if (amount==0)
-		{
-			break;
-		}
-		else
-		{
-			wagonParts += amount;
-			price += amount*getWagonPartPrice();
-			cout<<"current wagon parts total: $"<<price<<endl;
-		}
+		wagonParts += amount;
+		return price;
 	}
-	cout<<"total wagon parts price: $"<<price<<endl;
-	return price;
+	else
+	{
+		cout<<"not enough funds"<<endl;
+	}
+	return 0;
+	
+			//cout<<"current wagon parts total: $"<<price<<endl;
+	//cout<<"total wagon parts price: $"<<price<<endl;
 }
 
 
@@ -189,24 +196,21 @@ double Store::purchaseMedKits(int &medKits)
 {
 	int amount=1;
 	int price=0;
-	while (amount!=0)
+	cout<<"How many medical kits do you want to buy? Each med kit is $"<<getMedKitPrice()<<endl;
+	cin>>amount;
+	price += amount*getMedKitPrice();
+	if (price<=getMoney())
 	{
-		cout<<"How many medical kits do you want to buy? Each med kit is $"<<getMedKitPrice()<<endl;
-		cout<<"Press 0 to exit"<<endl;
-		cin>>amount;
-		if (amount==0)
-		{
-			break;
-		}
-		else
-		{
-			medKits += amount;
-			price += amount*getMedKitPrice();
-			cout<<"current med kit total: $"<<price<<endl;
-		}
+		medKits += amount;
+		return price;
 	}
-	cout<<"total med kit price: $"<<price<<endl;
-	return price;
+	else
+	{
+		cout<<"not enough funds"<<endl;
+	}
+	return 0;
+			//cout<<"current med kit total: $"<<price<<endl;
+	//cout<<"total med kit price: $"<<price<<endl;
 }
 
 

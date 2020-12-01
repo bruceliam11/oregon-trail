@@ -82,7 +82,7 @@ void Settlers::printMoney(){   //prints money (for testing)
     cout<<"You have $"<<money_<<" dollars remaining"<<endl;
 }
 
-double Settlers::getMilesToGo()  //miles remaining getter
+int Settlers::getMilesToGo()  //miles remaining getter
 {
     return milesToGo_;
 }
@@ -91,7 +91,7 @@ void Settlers::printMilesToGo(){
     cout<<"You have "<<milesToGo_<<" miles left to go"<<endl;
 }
 
-void Settlers::setMilesToGo(double milesToGo)  //miles remaining setter
+void Settlers::setMilesToGo(int milesToGo)  //miles remaining setter
 {
     milesToGo_ = milesToGo;
 }
@@ -102,7 +102,8 @@ void Settlers::visitStore(Store store)  //when user enters store
     store.printWelcomeMessage();
     store.setMoney(getMoney());
     double total = store.printMenu(oxen_,food_,bullets_,wagonParts_,medKits_);
-    setMoney(getMoney()-total);
+	setMoney(getMoney()-total);
+	
 }
 
 void Settlers::inputStartDate()
@@ -144,7 +145,7 @@ void Settlers::inputStartDate()
 
 void Settlers::printSupplies()
 {
-	cout<<"Oxen: "<<oxen_<<"\nFood: "<<food_<<"\nBullets: "<<bullets_<<"\nWagon parts: "<<wagonParts_<<"\nMed Kits: "<<medKits_<<"\nCash: "<<money_<<endl;
+	cout<<"Oxen: "<<oxen_<<"\nFood: "<<food_<<"\nBullets: "<<bullets_<<"\nWagon parts: "<<wagonParts_<<"\nMed Kits: "<<medKits_<<"\nCash: "<<fixed<<setprecision(2)<<money_<<endl;
 }
 
 
@@ -386,4 +387,72 @@ void Settlers::computeHuntEating()
 
 	}
 
+}
+
+
+void Settlers::raiderAttack(){
+
+    int M= rand()%getMilesToGo()+2040;//actually just getMiles
+
+    double prob  = ((((pow((M/100 - 4),2)+72))/((pow((M/100 - 4),2)+12)) - 1)/0.1);
+
+    if (prob> 5 && prob < 50){
+        
+        cout << "RIDERS AHEAD! THEY LOOK HOSTILE!" << endl;
+
+        int choice=0;
+        while (choice >=0 and choice <=3){
+            cout<<"Do you want to \n (1) Run. \n (2) Attack. \n (3) Surrender."<<endl;
+            cin>>choice;
+            if (choice==1){
+                // The travelling party escapes with their lives but, in the hurry to flee the raiders, they leave behind 1 ox, 10 lbs. of food and 1 wagon part.
+                oxen_ -= 1;
+                food_ -= 10;
+                wagonParts_ -= 1;
+				cout<<"You and your companions managed to escape, but lost an oxen, 10 lbs of food, and a wagon part."<<endl;
+                break;
+            } 
+			else if (choice==2){
+                // In order to win the battle, the player must pass a puzzle (see the puzzle section later in the project description).
+                cout << "Solve the puzzle in three attempts" << endl;
+				int number = rand() % 10+1;
+				int choice;
+				int triesRemaining = 3;
+				while (triesRemaining>0)
+				{
+					cout<<"I'm thinking of a number between 1 and 10. What number am I thinking of?"<<endl;
+					cout<<number<<endl;
+					cin>>choice;
+					if (choice==number)
+					{
+						food_ += 50;
+                    	bullets_+= 50;
+						cout<<"You beat the raiders! You and your party have gained 50 lbs of food and 50 bullets."<<endl;
+						break;
+					}
+					else{
+						cout<<"Incorrect. Guess again"<<endl;
+						triesRemaining -= 1;
+					}
+				}
+				if (choice!=number)
+				{
+					bullets_-= 50;
+                    money_=(money_*3)/4;
+					cout<<"You have lost the battle. You lose 50 bullets and a quarter of your money."<<endl;
+				}
+                break;
+            } 
+			else if (choice==3){
+                // The travelling party loses a quarter of their cash reserves.
+                money_= (money_*3)/4;
+				cout<<"The raiders have spared your lives, but have taken a quarter of your remaining cash."<<endl;
+                break;
+            }
+            else{
+                cout<<"Invalid choice"<<endl;
+            }
+    
+    	}
+	}
 }

@@ -27,8 +27,8 @@ class Settlers
         double getMoney();
         void setMoney(double money);
         void printMoney();
-        double getMilesToGo();
-        void setMilesToGo(double milesToGo);
+        int getMilesToGo();
+        void setMilesToGo(int milesToGo);
         void printMilesToGo();
         void visitStore(Store store);
         void inputStartDate();
@@ -44,6 +44,7 @@ class Settlers
 		bool computeHuntEncounter(int probability);
 		int createPuzzle();
 		void computeHuntEating();
+        void raiderAttack();
         
         
 
@@ -55,7 +56,7 @@ class Settlers
         int bullets_;  //number of boxes
         int wagonParts_;  //number of wagon parts
         int medKits_;      //number of med kits
-        double milesToGo_;
+        int milesToGo_;
         Calender calender_;
         //supplies (food, oxen, bullets, wagon parts)
         //Oxen oxen_;
