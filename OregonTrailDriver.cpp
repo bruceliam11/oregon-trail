@@ -26,18 +26,36 @@ int main(){
     Store store(1.0);
     settlers.visitStore(store);
     settlers.printSupplies();
+    cout<<endl<<endl;
     while (health!=0)
     {
-        
+    	int initialChoice;    
         date = settlers.getCurrentDate();
-        cout<<date.getName()<<" "<<date.getDay()<<", "<<settlers.getYear()<<endl;
-        settlers.addDaysElapsed(14);
-		settlers.printStatus();
-        settlers.addDaysElapsed(14);
         settlers.printStatus();
+    	cout<<endl<<endl;
+        //cout<<date.getName()<<" "<<date.getDay()<<", "<<settlers.getYear()<<endl;
+        initialChoice = settlers.getMenuChoice();
+        if (initialChoice == 1)
+        {
+        	cout<<"You chose to rest"<<endl;
+        }
+        else if (initialChoice == 2)
+        {
+		    settlers.addDaysElapsed(14);
+			//settlers.printStatus();
+			cout<<endl<<endl<<endl;
+		}
+		else if(initialChoice == 3)
+        {
+        	cout<<"You chose to hunt"<<endl;
+        }
+        else{
+        	health = 0;
+        }
+        //settlers.addDaysElapsed(14);
+        //settlers.printStatus();
+        //cout<<endl<<endl<<endl;
         //settlers.printMilesToGo();
-        
-        health = 0;
     }
     //settlers.printMoney();
     //store.printMenu();

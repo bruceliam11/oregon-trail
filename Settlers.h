@@ -37,6 +37,8 @@ class Settlers
         int getYear();
         void addDaysElapsed(int daysElapsed);
 		void printStatus();
+		int getMenuChoice();
+		
         
         
 

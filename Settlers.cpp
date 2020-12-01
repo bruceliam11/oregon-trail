@@ -174,13 +174,21 @@ void Settlers::addDaysElapsed(int daysElapsed)
 
 
 
+
 void Settlers::printStatus()
 {
 	Month date = getCurrentDate();
-    cout<<date.getName()<<" "<<date.getDay()<<", "<<getYear()<<endl<<endl;
+    cout<<date.getName()<<" "<<date.getDay()<<", "<<getYear()<<endl;
     cout<<"Total mileage is "<<2040-getMilesToGo()<<endl;
     printSupplies();
     
 }
 
+int Settlers::getMenuChoice()
+{
+	int choice;
+	cout<<"Do you want to: \n1)Stop to rest\n2)Continue on the trail\n3)Hunt for food\n4)Quit"<<endl;
+	cin>>choice;
+	return choice;
+}
 
