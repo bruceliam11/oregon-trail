@@ -44,10 +44,10 @@ int main(){
 		}
 		else if(initialChoice == 3)
         {
-        	cout<<"You chose to hunt"<<endl;
+        	settlers.huntForFood();
         }
         else{
-        	cout<<"Sorry you weren't good enough to continue"<<endl;
+        	cout<<"We hope you had a good time on the Oregon Trail!"<<endl;
         	health = 0;
         }
         //settlers.addDaysElapsed(14);

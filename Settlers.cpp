@@ -144,7 +144,7 @@ void Settlers::inputStartDate()
 
 void Settlers::printSupplies()
 {
-	cout<<"Oxen: "<<oxen_<<"\nFood: "<<food_<<"\nBullets: "<<bullets_<<"\nWagon parts: "<<wagonParts_<<"\nMed Kits: "<<medKits_<<endl;
+	cout<<"Oxen: "<<oxen_<<"\nFood: "<<food_<<"\nBullets: "<<bullets_<<"\nWagon parts: "<<wagonParts_<<"\nMed Kits: "<<medKits_<<"\nCash: "<<money_<<endl;
 }
 
 
@@ -201,7 +201,8 @@ void Settlers::continueOnTrail()
 	int days = 14;
 	addDaysElapsed(days);
 	food_-= (teamMemberNames_.size()*3)*days;
-	milesToGo_-=140; //TODO: need to travel between 70 and 140 miles each turn
+	milesToGo_-=rand()%70+70; //TODO: need to travel between 70 and 140 miles each turn
+	cout<<milesToGo_<<endl;
 }
 
 
@@ -211,4 +212,177 @@ void Settlers::stopToRest()
 	int days = 3; //TODO: need to rest for 1 to 3 days
 	addDaysElapsed(days);
 	food_-= (teamMemberNames_.size()*3)*days;
+}
+
+
+
+
+void Settlers::huntForFood()
+{
+	int days = 1;
+	int animalChoice;
+	addDaysElapsed(days);
+	bool encounteredRabbit = computeHuntEncounter(50);
+	bool encounteredFox = computeHuntEncounter(25);
+	bool encounteredDeer = computeHuntEncounter(15);
+	bool encounteredBear = computeHuntEncounter(7);
+	bool encounteredMoose = computeHuntEncounter(5);
+	cout<<"You have encountered"<<endl;
+	if (encounteredRabbit==true)
+	{
+		cout<<"1) a rabbit"<<endl;
+	}
+	if (encounteredFox==true)
+	{
+		cout<<"2) a fox"<<endl;
+	}
+	
+	if (encounteredDeer==true)
+	{
+		cout<<"3) a deer"<<endl;
+	}
+	if (encounteredBear==true)
+	{
+		cout<<"4) a bear"<<endl;
+	}
+	if (encounteredMoose==true)
+	{
+		cout<<"5) a moose"<<endl;
+	}
+	if (encounteredRabbit==false && encounteredFox==false && encounteredDeer==false && encounteredBear==false && encounteredMoose==false){
+		cout<<"nothing."<<endl;
+		return;
+	}
+	cout<<"Which animal do you want to hunt for? Press 6 to exit"<<endl;
+	cin>>animalChoice;
+	if (bullets_<10)
+	{
+		cout<<"You did not have enough bullets. Hunt is unsuccessful"<<endl;
+	}
+	else if (animalChoice==1 && bullets_>=10)
+	{
+		int hunt = createPuzzle();
+		if (hunt == 1)
+		{
+			food_+=5;
+			bullets_-=10;
+			computeHuntEating();
+		}
+	}
+	else if (animalChoice==2 && bullets_>=10)
+	{
+		int hunt = createPuzzle();
+		if (hunt == 1)
+		{
+			food_+=10;
+			bullets_-=8;
+			computeHuntEating();
+		}
+	}
+	
+	else if (animalChoice==3 && bullets_>=10)
+	{
+		int hunt = createPuzzle();
+		if (hunt == 1)
+		{
+			food_+=60;
+			bullets_-=5;
+			computeHuntEating();
+		}
+	}
+	else if (animalChoice==4 && bullets_>=10)
+	{
+		int hunt = createPuzzle();
+		if (hunt == 1)
+		{
+			food_+=200;
+			bullets_-=10;
+			computeHuntEating();
+		}
+	}
+	else if (animalChoice==5 && bullets_>=10)
+	{
+		int hunt = createPuzzle();
+		if (hunt == 1)
+		{
+			food_+=500;
+			bullets_-=12;
+			computeHuntEating();
+		}
+	}
+	else if (animalChoice == 6)
+	{
+		cout<<"You did not get any food"<<endl;
+		return;
+	}
+	else{
+		cout<<"Hunt unsuccessful"<<endl;
+	}
+}
+
+
+
+bool Settlers::computeHuntEncounter(int probability)
+{
+	return (rand()%100)<probability;         
+}
+
+
+
+int Settlers::createPuzzle()
+{
+	int number = rand() % 10+1;
+	int choice;
+	int triesRemaining = 3;
+	while (triesRemaining>0)
+	{
+		cout<<"I'm thinking of a number between 1 and 10. What number am I thinking of?"<<endl;
+		cout<<number<<endl;
+		cin>>choice;
+		if (choice==number)
+		{
+			cout<<"Successful hunt!"<<endl;
+			return 1;
+		}
+		else{
+			cout<<"Incorrect. Guess again"<<endl;
+			triesRemaining -= 1;
+		}
+	}
+	cout<<"Hunt is unsuccessful"<<endl;
+	return 0;
+}
+
+
+
+
+void Settlers::computeHuntEating()
+{
+	int foodChoice = 4;
+	while (foodChoice!=0)
+	{
+		cout<<"Do you want to eat:\n1) Poorly\n2) Moderately\n3) Well"<<endl;
+		cin>>foodChoice;
+		if (foodChoice==1)
+		{
+			food_-=2*teamMemberNames_.size();
+			foodChoice = 0;
+		}
+		else if (foodChoice==2)
+		{
+			food_-=3*teamMemberNames_.size();
+			foodChoice = 0;
+		}
+		else if (foodChoice==3)
+		{
+			food_-=5*teamMemberNames_.size();
+			foodChoice = 0;
+		}
+		else
+		{
+			cout<<"Not a valid option"<<endl;
+		}
+
+	}
+
 }

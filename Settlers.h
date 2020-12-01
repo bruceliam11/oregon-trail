@@ -40,6 +40,10 @@ class Settlers
 		int getMenuChoice();
 		void continueOnTrail();
 		void stopToRest();
+		void huntForFood();
+		bool computeHuntEncounter(int probability);
+		int createPuzzle();
+		void computeHuntEating();
         
         
 
