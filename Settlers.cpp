@@ -201,7 +201,7 @@ void Settlers::continueOnTrail()
 	int days = 14;
 	addDaysElapsed(days);
 	food_-= (teamMemberNames_.size()*3)*days;
-	milesToGo_-=rand()%70+70; //TODO: need to travel between 70 and 140 miles each turn
+	milesToGo_-=rand()%70+70;
 	cout<<milesToGo_<<endl;
 }
 
@@ -209,7 +209,8 @@ void Settlers::continueOnTrail()
 
 void Settlers::stopToRest()
 {
-	int days = 3; //TODO: need to rest for 1 to 3 days
+	int days = rand()%3+1;
+	cout<<days<<endl;
 	addDaysElapsed(days);
 	food_-= (teamMemberNames_.size()*3)*days;
 }
