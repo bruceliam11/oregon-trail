@@ -32,24 +32,22 @@ int main(){
     	int initialChoice;    
         date = settlers.getCurrentDate();
         settlers.printStatus();
-    	cout<<endl<<endl;
         //cout<<date.getName()<<" "<<date.getDay()<<", "<<settlers.getYear()<<endl;
         initialChoice = settlers.getMenuChoice();
         if (initialChoice == 1)
         {
-        	cout<<"You chose to rest"<<endl;
+        	settlers.stopToRest();
         }
         else if (initialChoice == 2)
         {
-		    settlers.addDaysElapsed(14);
-			//settlers.printStatus();
-			cout<<endl<<endl<<endl;
+        	settlers.continueOnTrail();
 		}
 		else if(initialChoice == 3)
         {
         	cout<<"You chose to hunt"<<endl;
         }
         else{
+        	cout<<"Sorry you weren't good enough to continue"<<endl;
         	health = 0;
         }
         //settlers.addDaysElapsed(14);

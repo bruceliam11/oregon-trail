@@ -38,7 +38,8 @@ class Settlers
         void addDaysElapsed(int daysElapsed);
 		void printStatus();
 		int getMenuChoice();
-		
+		void continueOnTrail();
+		void stopToRest();
         
         
 

@@ -177,10 +177,12 @@ void Settlers::addDaysElapsed(int daysElapsed)
 
 void Settlers::printStatus()
 {
+	cout<<endl<<endl;
 	Month date = getCurrentDate();
     cout<<date.getName()<<" "<<date.getDay()<<", "<<getYear()<<endl;
     cout<<"Total mileage is "<<2040-getMilesToGo()<<endl;
     printSupplies();
+    cout<<endl<<endl;
     
 }
 
@@ -192,3 +194,21 @@ int Settlers::getMenuChoice()
 	return choice;
 }
 
+
+
+void Settlers::continueOnTrail()
+{
+	int days = 14;
+	addDaysElapsed(days);
+	food_-= (teamMemberNames_.size()*3)*days;
+	milesToGo_-=140; //TODO: need to travel between 70 and 140 miles each turn
+}
+
+
+
+void Settlers::stopToRest()
+{
+	int days = 3; //TODO: need to rest for 1 to 3 days
+	addDaysElapsed(days);
+	food_-= (teamMemberNames_.size()*3)*days;
+}
