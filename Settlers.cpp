@@ -201,7 +201,7 @@ int Settlers::getMenuChoice()
 
 
 
-void Settlers::continueOnTrail()
+int Settlers::continueOnTrail()
 {
 	int days = 14;
 	addDaysElapsed(days);
@@ -212,18 +212,22 @@ void Settlers::continueOnTrail()
 	if (food_<=0)
 	{
 		cout<<"Ran out of food. Game over."<<endl;
+		return 0;
 	}
 	if (oxen_<=0)
 	{
 		cout<<"Ran out of oxen. Game over."<<endl;
+		return 0;
 	}
 	if (wagonParts_<=0)
 	{
 		cout<<"Ran out of wagon parts. Game over."<<endl;
+		return 0;
 	}
 	if (computeTotalTrailDays()==0)
 	{
 		cout<<"It's November 30 and you haven't made it to Oregon City. Game Over."<<endl;
+		return 0;
 	}
 	if (plannedTravelMiles+currentMilesFromStart==milestones_[0].getMilesFromStart())
 	{
@@ -232,6 +236,7 @@ void Settlers::continueOnTrail()
 		if (milestones_.size()==0)
 		{
 			cout<<"Congratulations, you've finished the Oregon Trail!"<<endl;
+			return 0;
 		}
 		else
 		{
@@ -242,18 +247,31 @@ void Settlers::continueOnTrail()
 	else
 	{
 	}
+	return 1;
+	
 	//int milesFromStart = 2040-milesToGo_+plannedTravelMiles;
 	//milesToGo_ = getMilesTraveled(plannedTravelMiles, );
 }
 
 
 
-void Settlers::stopToRest()
+int Settlers::stopToRest()
 {
 	int days = rand()%3+1;
-	cout<<days<<endl;
+	//cout<<days<<endl;
 	addDaysElapsed(days);
 	food_-= (teamMemberNames_.size()*3)*days;
+	if (food_<=0)
+	{
+		cout<<"Ran out of food. Game over."<<endl;
+		return 0;
+	}
+	if (computeTotalTrailDays()==0)
+	{
+		cout<<"It's November 30 and you haven't made it to Oregon City. Game Over."<<endl;
+		return 0;
+	}
+	return 1;
 }
 
 
@@ -432,11 +450,17 @@ void Settlers::computeHuntEating()
 
 void Settlers::raiderAttack(){
 
-    int M= rand()%getMilesToGo()+2040;//actually just getMiles
+	double M= double (2040.0-getMilesToGo());
 
-    double prob  = ((((pow((M/100 - 4),2)+72))/((pow((M/100 - 4),2)+12)) - 1)/0.1);
+	double a = ((M/100.0)-4.0);
 
-    if (prob> 5 && prob < 50){
+	double b = (a*a)+72.0;
+
+	double c = (a*a)+12.0;
+
+	double prob = ((b/c)-1.0)/0.10;
+
+    if (rand()%101<prob){
         
         cout << "RIDERS AHEAD! THEY LOOK HOSTILE!" << endl;
 
@@ -509,7 +533,7 @@ void Settlers::loadMilestones()
     int miles;
     int type;
     while(getMilestoneLine(name,miles,type,inFile)){
-        milestones_.push_back(Milestone(name,miles,type));
+    	milestones_.push_back(Milestone(name,miles,type));
     }
 
 }
@@ -552,7 +576,7 @@ int Settlers::computeTotalTrailDays()
 	Month endingDate("November",30);
 	if (endingDate.getName()==currentDate.getName() && endingDate.getDay()<=currentDate.getDay())
 	{
-		currentDate.getDay() = endingDate.getDay();
+		//currentDate.getDay() = endingDate.getDay();
 		return 0;
 	}
 	else

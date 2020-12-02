@@ -37,12 +37,20 @@ int main(){
         if (initialChoice == 1)
         {
             settlers.raiderAttack();
-        	settlers.stopToRest();
+        	int outcome = settlers.stopToRest();
+            if (outcome==0)
+            {
+                health = 0;
+            }
         }
         else if (initialChoice == 2)
         {
             settlers.raiderAttack();
-        	settlers.continueOnTrail();
+        	int outcome = settlers.continueOnTrail();
+            if (outcome==0)
+            {
+                health = 0;
+            }
 		}
 		else if(initialChoice == 3)
         {

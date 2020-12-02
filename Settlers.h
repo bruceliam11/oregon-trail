@@ -39,8 +39,8 @@ class Settlers
         void addDaysElapsed(int daysElapsed);
 		void printStatus();
 		int getMenuChoice();
-		void continueOnTrail();
-		void stopToRest();
+		int continueOnTrail();
+		int stopToRest();
 		void huntForFood();
 		bool computeHuntEncounter(int probability);
 		int createPuzzle();
