@@ -244,7 +244,7 @@ int Settlers::continueOnTrail()
 		}
 		else
 		{
-			cout<<"You are now heading to "<<milestones_[0].getName()<<". You are "<<milestones_[0].getMilesFromStart()<<" miles away"<<endl;
+			cout<<"You are now heading to "<<milestones_[0].getName()<<". You are "<<(milestones_[0].getMilesFromStart()-currentMilesFromStart)<<" miles away"<<endl;
 		}
 		
 	}
@@ -401,7 +401,6 @@ int Settlers::createPuzzle()
 	while (triesRemaining>0)
 	{
 		cout<<"I'm thinking of a number between 1 and 10. What number am I thinking of?"<<endl;
-		cout<<number<<endl;
 		cin>>choice;
 		if (choice==number)
 		{
@@ -489,7 +488,6 @@ void Settlers::raiderAttack(){
 				while (triesRemaining>0)
 				{
 					cout<<"I'm thinking of a number between 1 and 10. What number am I thinking of?"<<endl;
-					cout<<number<<endl;
 					cin>>choice;
 					if (choice==number)
 					{
@@ -615,12 +613,12 @@ void Settlers::misfortune(){
 	
 	if (prob == true){
 
-		int choice=rand()%4+1;
+		int choice=rand()%4+0;
 		
 		if (choice==1){
 			int player = rand()%4+0;
 			int disease = rand()%5+0;
-			cout << "OH NO! " << teamMemberNames_[player] << " HAS THE " << disease_[disease] << "!" << endl;
+			cout << "OH NO! " << teamMemberNames_[player] << " HAS " << disease_[disease] << "!" << endl;
 			// If the travelling party has a medical aid kit, the kit will be used, but the sick player still has a 50% chance of dying.
 			if (medKits_>0){
 					teamMemberHealth_[player] = teamMemberHealth_[player] - 50;
@@ -655,18 +653,12 @@ void Settlers::misfortune(){
 			oxen_-=1;
 			cout << "OH NO! ONE OF THE OXEN HAS DIED! YOU HAVE "<< oxen_ << " OXEN LEFT" << endl;
 			//The travelling party will become unable to continue their journey if all their oxen die
-			if (oxen_ == 0){
-				cout << "Cant continue journey" << endl;
-			}
 		} else if (choice==3){
 			
 			cout << "OH NO! ONE OF YOUR WHEELS IS BROKEN!" << endl;
 			// If the player has spare wagon parts, one will be used to fix the wagon. The number of spare Parts goes down by 1.
 			wagonParts_-=1;
 			// If the player does not have spare wagon parts, the travelling party will become unable to continue their journey
-			if (wagonParts_==0) {
-				cout << "Cant continue journey" << endl;
-			}
 		}	
 	}
 }
