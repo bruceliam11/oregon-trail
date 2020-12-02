@@ -51,6 +51,9 @@ class Settlers
         int getTypeFromString(string name);
         int getMilestoneLine(string &name, int &miles, int &type, ifstream &inFile);
         int computeTotalTrailDays();
+        void setTeamMemberHealth();
+        void setDisease();
+        void misfortune();
         
         
 
@@ -65,6 +68,8 @@ class Settlers
         int milesToGo_;
         Calender calender_;
         vector<Milestone> milestones_;
+        vector<int> teamMemberHealth_;
+        vector<string> disease_;
         //supplies (food, oxen, bullets, wagon parts)
         //Oxen oxen_;
         //Food food_;

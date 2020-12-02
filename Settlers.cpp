@@ -232,6 +232,10 @@ int Settlers::continueOnTrail()
 	if (plannedTravelMiles+currentMilesFromStart==milestones_[0].getMilesFromStart())
 	{
 		cout<<"You have reached "<<milestones_[0].getName()<<endl;
+		if (milestones_[0].getType()==0)
+		{
+			visitStore(1.5);
+		}
 		milestones_.erase(milestones_.begin());
 		if (milestones_.size()==0)
 		{
@@ -586,5 +590,84 @@ int Settlers::computeTotalTrailDays()
 	
 }
 
+void Settlers::setTeamMemberHealth(){
+	teamMemberHealth_.push_back(100);
+	teamMemberHealth_.push_back(100);
+	teamMemberHealth_.push_back(100);
+	teamMemberHealth_.push_back(100);
+	teamMemberHealth_.push_back(100);
+}
 
+void Settlers::setDisease(){
+	// typhoid, cholera, diarrhea, measles, dysentery (of course), and fever.
+	disease_.push_back("typhoid");
+	disease_.push_back("cholera");
+	disease_.push_back("diarrhea");
+	disease_.push_back("measles");
+	disease_.push_back("dysentery");
+	disease_.push_back("fever");
+}
+
+
+void Settlers::misfortune(){
+
+	bool prob  = (rand()%100)<40;
+	
+	if (prob == true){
+
+		int choice=rand()%4+1;
+		
+		if (choice==1){
+			int player = rand()%4+0;
+			int disease = rand()%5+0;
+			cout << "OH NO! " << teamMemberNames_[player] << " HAS THE " << disease_[disease] << "!" << endl;
+			// If the travelling party has a medical aid kit, the kit will be used, but the sick player still has a 50% chance of dying.
+			if (medKits_>0){
+					teamMemberHealth_[player] = teamMemberHealth_[player] - 50;
+					medKits_-=1;
+			} else {
+				// If the party does not have a medical aid kit, they can choose to “Rest” or “Press On!”
+				cout << "Do you want to \n(1) Rest or \n(2) Press On";
+				int res = 0;
+				cin >> res;
+				if (res == 1){
+					// If the player chooses to “Rest”, the party must rest for 3 days, but the sick player still has a 30% chance of dying.
+					addDaysElapsed(3);
+					teamMemberHealth_[player] = teamMemberHealth_[player] - 30;
+				} else if (res == 2) {
+					// If the player chooses to “Press On!”, the sick player has a 70% chance of dying. 
+					teamMemberHealth_[player] = teamMemberHealth_[player] - 70;
+				} 
+				// Set the health
+				if (teamMemberHealth_[player] <= 0) 
+					cout << "YOU DIED OF " << disease_[disease] << "!" << endl;
+
+				// If the leader of the travelling party dies, the game ends.
+				if (teamMemberHealth_[0] <= 0) {
+					// end game
+					cout << "YOU DIED OF " << disease_[disease] << "!" << endl;
+				}
+
+				cout << "health : " << teamMemberHealth_[player] << endl;
+				
+			}			
+		} else if (choice==2){
+			oxen_-=1;
+			cout << "OH NO! ONE OF THE OXEN HAS DIED! YOU HAVE "<< oxen_ << " OXEN LEFT" << endl;
+			//The travelling party will become unable to continue their journey if all their oxen die
+			if (oxen_ == 0){
+				cout << "Cant continue journey" << endl;
+			}
+		} else if (choice==3){
+			
+			cout << "OH NO! ONE OF YOUR WHEELS IS BROKEN!" << endl;
+			// If the player has spare wagon parts, one will be used to fix the wagon. The number of spare Parts goes down by 1.
+			wagonParts_-=1;
+			// If the player does not have spare wagon parts, the travelling party will become unable to continue their journey
+			if (wagonParts_==0) {
+				cout << "Cant continue journey" << endl;
+			}
+		}	
+	}
+}
 //TODO: function to calculate distance from fort, if distance traveled on that day is greater than distance to fort -> miles traveled = milestone distance from start, pop off milestone from vector

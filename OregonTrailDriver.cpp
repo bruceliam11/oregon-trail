@@ -19,6 +19,8 @@ int main(){
     settlers.inputLeaderName();
     //cout<<settlers.getLeaderName()<<endl;
     settlers.inputCompanionNames();
+    settlers.setTeamMemberHealth();
+    settlers.setDisease();
     settlers.printCompanionNames();
     settlers.printMoney();
     settlers.printMilesToGo();
@@ -37,6 +39,7 @@ int main(){
         if (initialChoice == 1)
         {
             settlers.raiderAttack();
+            settlers.misfortune();
         	int outcome = settlers.stopToRest();
             if (outcome==0)
             {
@@ -46,6 +49,7 @@ int main(){
         else if (initialChoice == 2)
         {
             settlers.raiderAttack();
+            settlers.misfortune();
         	int outcome = settlers.continueOnTrail();
             if (outcome==0)
             {
@@ -55,6 +59,7 @@ int main(){
 		else if(initialChoice == 3)
         {
             settlers.raiderAttack();
+            settlers.misfortune();
         	settlers.huntForFood();
         }
         else{
