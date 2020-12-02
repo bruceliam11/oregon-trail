@@ -3,8 +3,11 @@
 // Recitation: 510 - Edwards
 // Project 3 Skeleton
 #include "Settlers.h"
+#include "Milestone.h"
 #include <iostream>
 #include <cmath>
+#include <fstream>
+#include <sstream>
 using namespace std;
 
 
@@ -16,6 +19,7 @@ Settlers::Settlers(){
     bullets_ = 0;
     wagonParts_ = 0;
     medKits_ = 0;
+	loadMilestones();
 }
 
 //member functions
@@ -202,8 +206,28 @@ void Settlers::continueOnTrail()
 	int days = 14;
 	addDaysElapsed(days);
 	food_-= (teamMemberNames_.size()*3)*days;
-	milesToGo_-=rand()%70+70;
-	cout<<milesToGo_<<endl;
+	int currentMilesFromStart = 2040-milesToGo_;
+	int plannedTravelMiles=min((rand()%70+70),milestones_[0].getMilesFromStart()-currentMilesFromStart);
+	milesToGo_-=plannedTravelMiles;
+	if (plannedTravelMiles+currentMilesFromStart==milestones_[0].getMilesFromStart())
+	{
+		cout<<"You have reached "<<milestones_[0].getName()<<endl;
+		milestones_.erase(milestones_.begin());
+		if (milestones_.size()==0)
+		{
+			cout<<"Congratulations, you've finished the Oregon Trail!"<<endl;
+		}
+		else
+		{
+			cout<<"You are now heading to "<<milestones_[0].getName()<<". You are "<<milestones_[0].getMilesFromStart()<<" miles away"<<endl;
+		}
+		
+	}
+	else
+	{
+	}
+	//int milesFromStart = 2040-milesToGo_+plannedTravelMiles;
+	//milesToGo_ = getMilesTraveled(plannedTravelMiles, );
 }
 
 
@@ -456,3 +480,53 @@ void Settlers::raiderAttack(){
     	}
 	}
 }
+
+
+
+
+
+void Settlers::loadMilestones()
+{
+	ifstream inFile("milestones.txt");
+    string line;
+    string name;
+    int miles;
+    int type;
+    while(getMilestoneLine(name,miles,type,inFile)){
+        milestones_.push_back(Milestone(name,miles,type));
+    }
+
+}
+
+  
+int Settlers::getMilesFromString(string miles){
+    string mile = miles.substr(2,miles.length()-2);
+    return stoi(mile);
+}
+int Settlers::getTypeFromString(string name){
+    if (name.substr(0,4) == "Fort"){
+        return 0;
+    }
+    else if (name.substr(name.length()-8,8) == "Crossing"){
+        return 1;
+    }
+    else{
+        return 2;
+    }
+}
+int Settlers::getMilestoneLine(string &name, int &miles, int &type, ifstream &inFile){
+    string milesToGo;
+    if (getline(inFile, name)){
+        if (getline(inFile, milesToGo)){
+            miles = getMilesFromString(milesToGo);
+            type = getTypeFromString(name);
+            return 1;
+        }
+    }
+    return 0;
+}
+
+
+
+
+//TODO: function to calculate distance from fort, if distance traveled on that day is greater than distance to fort -> miles traveled = milestone distance from start, pop off milestone from vector

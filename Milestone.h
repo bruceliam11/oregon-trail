@@ -27,3 +27,5 @@ class Milestone
         int milesFromStart_;
         int type_; //0 is Fort, 1 is Crossing, 2 is Landmark
 };
+
+

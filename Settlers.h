@@ -6,6 +6,7 @@
 #include "Store.h"
 #include "Calender.h"
 #include "Month.h"
+#include "Milestone.h"
 #include <iostream>
 #include <iomanip>
 #include <string>
@@ -45,6 +46,10 @@ class Settlers
 		int createPuzzle();
 		void computeHuntEating();
         void raiderAttack();
+        void loadMilestones();
+        int getMilesFromString(string miles);
+        int getTypeFromString(string name);
+        int getMilestoneLine(string &name, int &miles, int &type, ifstream &inFile);
         
         
 
@@ -58,6 +63,7 @@ class Settlers
         int medKits_;      //number of med kits
         int milesToGo_;
         Calender calender_;
+        vector<Milestone> milestones_;
         //supplies (food, oxen, bullets, wagon parts)
         //Oxen oxen_;
         //Food food_;

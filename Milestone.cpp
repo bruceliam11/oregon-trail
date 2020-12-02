@@ -71,32 +71,8 @@ int Milestone::getType(){
 void Milestone::setType(int type){
     type_ = type;
 }
-int getMilesFromString(string miles){
-    string mile = miles.substr(2,miles.length()-2);
-    return stoi(mile);
-}
-int getTypeFromString(string name){
-    if (name.substr(0,4) == "Fort"){
-        return 0;
-    }
-    else if (name.substr(name.length()-8,8) == "Crossing"){
-        return 1;
-    }
-    else{
-        return 2;
-    }
-}
-int getMilestoneLine(string &name, int &miles, int &type, ifstream &inFile){
-    string milesToGo;
-    if (getline(inFile, name)){
-        if (getline(inFile, milesToGo)){
-            miles = getMilesFromString(milesToGo);
-            type = getTypeFromString(name);
-            return 1;
-        }
-    }
-    return 0;
-}
+
+
 
 
 /*int main(){
