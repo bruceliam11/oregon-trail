@@ -50,6 +50,7 @@ class Settlers
         int getMilesFromString(string miles);
         int getTypeFromString(string name);
         int getMilestoneLine(string &name, int &miles, int &type, ifstream &inFile);
+        int computeTotalTrailDays();
         
         
 

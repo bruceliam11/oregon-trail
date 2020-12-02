@@ -36,18 +36,18 @@ int main(){
         initialChoice = settlers.getMenuChoice();
         if (initialChoice == 1)
         {
-        	settlers.stopToRest();
             settlers.raiderAttack();
+        	settlers.stopToRest();
         }
         else if (initialChoice == 2)
         {
-        	settlers.continueOnTrail();
             settlers.raiderAttack();
+        	settlers.continueOnTrail();
 		}
 		else if(initialChoice == 3)
         {
-        	settlers.huntForFood();
             settlers.raiderAttack();
+        	settlers.huntForFood();
         }
         else{
         	cout<<"We hope you had a good time on the Oregon Trail!"<<endl;

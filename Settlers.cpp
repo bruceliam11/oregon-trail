@@ -207,8 +207,24 @@ void Settlers::continueOnTrail()
 	addDaysElapsed(days);
 	food_-= (teamMemberNames_.size()*3)*days;
 	int currentMilesFromStart = 2040-milesToGo_;
-	int plannedTravelMiles=min((rand()%70+70),milestones_[0].getMilesFromStart()-currentMilesFromStart);
+	int plannedTravelMiles=min((rand()%71+70),milestones_[0].getMilesFromStart()-currentMilesFromStart);
 	milesToGo_-=plannedTravelMiles;
+	if (food_<=0)
+	{
+		cout<<"Ran out of food. Game over."<<endl;
+	}
+	if (oxen_<=0)
+	{
+		cout<<"Ran out of oxen. Game over."<<endl;
+	}
+	if (wagonParts_<=0)
+	{
+		cout<<"Ran out of wagon parts. Game over."<<endl;
+	}
+	if (computeTotalTrailDays()==0)
+	{
+		cout<<"It's November 30 and you haven't made it to Oregon City. Game Over."<<endl;
+	}
 	if (plannedTravelMiles+currentMilesFromStart==milestones_[0].getMilesFromStart())
 	{
 		cout<<"You have reached "<<milestones_[0].getName()<<endl;
@@ -499,7 +515,8 @@ void Settlers::loadMilestones()
 }
 
   
-int Settlers::getMilesFromString(string miles){
+int Settlers::getMilesFromString(string miles)
+{
     string mile = miles.substr(2,miles.length()-2);
     return stoi(mile);
 }
@@ -507,14 +524,16 @@ int Settlers::getTypeFromString(string name){
     if (name.substr(0,4) == "Fort"){
         return 0;
     }
-    else if (name.substr(name.length()-8,8) == "Crossing"){
+    else if (name.substr(name.length()-8,8) == "Crossing")
+	{
         return 1;
     }
     else{
         return 2;
     }
 }
-int Settlers::getMilestoneLine(string &name, int &miles, int &type, ifstream &inFile){
+int Settlers::getMilestoneLine(string &name, int &miles, int &type, ifstream &inFile)
+{
     string milesToGo;
     if (getline(inFile, name)){
         if (getline(inFile, milesToGo)){
@@ -527,6 +546,21 @@ int Settlers::getMilestoneLine(string &name, int &miles, int &type, ifstream &in
 }
 
 
+int Settlers::computeTotalTrailDays()
+{
+	Month currentDate = getCurrentDate();
+	Month endingDate("November",30);
+	if (endingDate.getName()==currentDate.getName() && endingDate.getDay()<=currentDate.getDay())
+	{
+		currentDate.getDay() = endingDate.getDay();
+		return 0;
+	}
+	else
+	{
+		return 1;
+	}
+	
+}
 
 
 //TODO: function to calculate distance from fort, if distance traveled on that day is greater than distance to fort -> miles traveled = milestone distance from start, pop off milestone from vector
